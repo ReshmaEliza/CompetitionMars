@@ -37,7 +37,7 @@ namespace TestMarsCompetition.Tests
 
         public TestCertificate() {
 
-            testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCert.json");
+            testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate.json");
             loginData = testDatacert.LoginData;
             certificatePage = new CertificatePage();
             login = new Login();

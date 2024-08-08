@@ -37,10 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Utilities\TestDataCert.json">
+    <None Update="Utilities\TestDataCertificate.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Utilities\TestDataEducation.json">
+    <None Update="Utilities\TestDataEdu.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

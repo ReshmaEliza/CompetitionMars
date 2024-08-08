@@ -33,7 +33,7 @@ namespace TestMarsCompetition.Tests
         {
 
 
-             testData = JsonReaderEdu.ReadTestData("Utilities/TestDataEducation.json");
+             testData = JsonReaderEdu.ReadTestData("Utilities/TestDataEdu.json");
               loginData = testData.LoginData;
             educationPage = new EducationPage();
             login = new Login();
