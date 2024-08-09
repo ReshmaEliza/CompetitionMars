@@ -8,11 +8,11 @@ using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 using TestMarsCompetition.Page;
 using TestMarsCompetition.Utilities;
-using TestMarsCompetition.Pages;
+
 using System.Runtime.InteropServices;
 
 
-namespace TestMarsCompetition.Pages
+namespace TestMarsCompetition.Page
 {
     class EducationPage
     {

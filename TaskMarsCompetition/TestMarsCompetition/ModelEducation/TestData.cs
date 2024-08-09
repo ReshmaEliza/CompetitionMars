@@ -12,7 +12,7 @@ namespace TestMarsCompetition.ModelEducation
 
         public class TestData
         {
-        public LoginData LoginData { get; set; }
+        
         public List<TestCase> TestCases { get; set; }
     }
 

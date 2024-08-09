@@ -1,0 +1,22 @@
+﻿{
+  "TestCases": [
+       {
+      "TestCaseId": "Tc02",
+      "Description": "Validate if the creation of Certificate fails with special characters",
+      "InputData": {
+        "certificationData": {
+          "certificationName": "@@",
+          "certificationFrom": "@$",
+          "certificationYear": "2020"
+        }
+
+      }
+    }
+        ]
+      }
+    
+   
+
+
+  
+

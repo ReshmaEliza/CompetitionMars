@@ -18,7 +18,7 @@ namespace TestMarsCompetition.Utilities
         protected string pattern = @"^(?:$|(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s-#]+)$";
 
         String UpdatedElement;
-        private static By row_Locator => By.XPath("//div[@data-tab='fourth']//tbody");
+        private static By row_Locator => By.XPath("//div[@data-tab='third']//tbody");
         protected static List<string> table_Values = new List<string>();
         protected static List<string> table_Values_College = new List<string>();
         protected static List<string> table_Values_Degree = new List<string>();

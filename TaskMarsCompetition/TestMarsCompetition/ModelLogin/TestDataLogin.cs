@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestMarsCompetition.ModelEducation
+namespace TestMarsCompetition.ModelLogin
 {
-    public class LoginData
+    public class TestDataLogin
     {
 
         public String email { get; set; }

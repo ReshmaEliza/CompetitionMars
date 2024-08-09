@@ -1,0 +1,39 @@
+﻿{
+ 
+  "TestCases": [
+    
+    {
+      "TestCaseId": "Tc10",
+      "Description": "Validate the addition of Education feature with 1000 characters",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "<RandomCollege>",
+          "Title": "BFA",
+          "Degree": "<RandomDegree>",
+          "YearOfGraduation": "2021"
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc11",
+      "Description": "Verify the stability of system under high load",
+      "InputData": {
+        "EducationDataCount": {
+          "Count": "10"
+        },
+        "EducationData": {
+          "Count": "10",
+          "Country": "Algeria",
+          "InstituteName": "<RandomCollege>",
+          "Title": "BFA",
+          "Degree": "<RandomDegree>",
+          "YearOfGraduation": "2021"
+        }
+      }
+    }
+
+
+
+  ]
+}

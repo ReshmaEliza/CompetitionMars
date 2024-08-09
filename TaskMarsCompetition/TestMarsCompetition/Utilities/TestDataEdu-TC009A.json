@@ -1,0 +1,49 @@
+﻿{
+ 
+  "TestCases": [
+  
+    {
+      "TestCaseId": "Tc09a",
+      "Description": "Verify if duplicate entries are blocked in case of updating the entries.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "M.Tech",
+            "degree": "Masters in Information Technology",
+            "yearOfGraduation": "2024"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "Associate",
+            "degree": "Information Technology",
+            "yearOfGraduation": "2024"
+          }
+
+        ],
+        "EditEducationData": {
+          "targetdegree": "Masters in Information Technology",
+          "newData": {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          }
+        }
+      }
+    }
+    
+
+
+  ]
+}

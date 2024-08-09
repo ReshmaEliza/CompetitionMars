@@ -9,7 +9,7 @@ namespace TestMarsCompetition.ModelCert
     public class TestDataCert
     {
 
-        public LoginData LoginData { get; set; }
+        
         public List<TestCases> TestCases { get; set; }
     }
 }

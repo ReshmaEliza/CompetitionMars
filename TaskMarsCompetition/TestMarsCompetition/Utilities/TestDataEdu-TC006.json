@@ -1,0 +1,34 @@
+﻿{
+
+  "TestCases": [
+    
+    {
+      "TestCaseId": "Tc06",
+      "Description": "Verify the delete functionality.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "Edu",
+            "title": "B.A",
+            "degree": "Education2",
+            "yearOfGraduation": "2024"
+          }
+        ],
+        "DeleteEducationData": {
+          "targetdegree": "Education2"
+
+        }
+      }
+    }
+
+   
+  ]
+}

@@ -6,8 +6,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TestMarsCompetition.Utilities;
 using TestMarsCompetition.Context;
-using TestMarsCompetition.Pages;
+
 using TestMarsCompetition.Page;
+using TestMarsCompetition.ModelEducation;
+using TestMarsCompetition.ModelLogin;
 
 
 namespace TestMarsCompetition.Utilities
@@ -19,13 +21,17 @@ namespace TestMarsCompetition.Utilities
         public static ExtentTest test;
         private EducationPage educationPage;
         private CertificatePage certificatePage;
-        
+        private TestDataLogin loginData;
 
+        private Login login;
+
+        private TestData testData;
+        string testName = TestContext.CurrentContext.Test.Name;
 
         public CommonHooks()
         {
             extent = new AventStack.ExtentReports.ExtentReports();
-
+            login = new Login();
             educationPage = new EducationPage();
             certificatePage = new CertificatePage();
             
@@ -52,12 +58,28 @@ namespace TestMarsCompetition.Utilities
 
         }
         [SetUp]
-        public static void StartUp()
+        public  void StartUp()
         {
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            
+            test = extent.CreateTest(testName);
             WebdriverManager.InitializeDriver();
+            loginData = JsonReaderlogin.ReadTestData("Utilities/TestDataLogin.json");
+             login.loginPage(loginData.email, loginData.password);
+            
 
+            if (testName.Contains("Education", StringComparison.OrdinalIgnoreCase))
+            {
+                educationPage.GoToTab();
+                educationPage.DeleteAllElements();
             }
+            else if (testName.Contains("Certificate", StringComparison.OrdinalIgnoreCase))
+            {
+                certificatePage.GoToTab();
+                certificatePage.DeleteAllElements();
+            }
+         
+            
+        }
 
 
         [TearDown]
@@ -88,8 +110,9 @@ namespace TestMarsCompetition.Utilities
 
             extent.Flush();
 
-            // Clean up the added education data
-            
+            // Clean up the added education data if Edu Tests are run
+            if (testName.Contains("Education", StringComparison.OrdinalIgnoreCase))
+            {
                 var addedEducationData = TestContextManager.AddedEducationData;
 
             foreach (var educationData in addedEducationData)
@@ -101,15 +124,21 @@ namespace TestMarsCompetition.Utilities
             }
 
             var updatedEducationvalue = TestContextManager.UpdatedEducation;
-            // Delete all updated languages
-            foreach (var Educationset in updatedEducationvalue)
-            {
-                Thread.Sleep(2000);
-                educationPage.delete(Educationset); //  deletion of updated elements for the particular scenario
+
+            // Delete all if update action was performed on  Education 
+           
+                foreach (var Educationset in updatedEducationvalue)
+                {
+                    Thread.Sleep(2000);
+                    educationPage.delete(Educationset); //  deletion of updated elements for the particular scenario
+                }
+               
+
             }
-        
-            // Clean up the added cert data
-        
+
+            // Clean up the added cert data if the test for cert is run
+            else if (testName.Contains("Certificate", StringComparison.OrdinalIgnoreCase))
+            {
                 var addedcertData = TestContextManager.AddedCertData;
             
                 foreach (var certificationData in addedcertData)
@@ -120,17 +149,17 @@ namespace TestMarsCompetition.Utilities
                
 
                 }
-
+           
                 var updatedCertvalue = TestContextManager.UpdatedCert;
-                // Delete all updated languages
+                // Delete all updated certificates
                 foreach (var certset in updatedCertvalue)
                 {
                     Thread.Sleep(2000);
                     certificatePage.delete(certset); //  deletion of updated elements for the particular scenario
                 }
 
-            
 
+            }
             WebdriverManager.QuitDriver();
         }
 

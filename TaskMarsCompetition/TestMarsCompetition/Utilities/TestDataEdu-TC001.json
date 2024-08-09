@@ -1,0 +1,21 @@
+﻿{
+ 
+  "TestCases": [
+    {
+      "TestCaseId": "Tc01",
+      "Description": "Validate if the creation of Education is successful .",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "k",
+          "Title": "BFA",
+          "Degree": "k",
+          "YearOfGraduation": "2021"
+        }
+
+      }
+    }
+
+
+  ]
+}

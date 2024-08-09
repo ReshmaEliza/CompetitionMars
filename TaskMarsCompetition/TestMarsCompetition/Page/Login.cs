@@ -21,13 +21,19 @@ namespace TestMarsCompetition.Page
         public Login()  {
             driver = WebdriverManager.GetDriver();
         }
-
-        private IWebElement SignIn => driver.FindElement(By.XPath("//div/a[@class='item']"));
+        //driver.FindElement(
+        private IWebElement  SignIn => driver.FindElement(By.XPath("//div/a[@class='item']"));
+          
         private IWebElement Email => driver.FindElement(By.XPath("//input[@name='email']"));
+      
+       private IWebElement PasswordElement => driver.FindElement(By.XPath("//input[@name='password']"));
+   
 
-        private IWebElement PasswordElement => driver.FindElement(By.XPath("//input[@name='password']"));
+       private IWebElement loginButton => driver.FindElement(By.XPath("//button[contains(text(),'Login')]"));
+      
 
-        private IWebElement loginButton => driver.FindElement(By.XPath("//button[contains(text(),'Login')]"));
+
+
 
 
 
@@ -38,10 +44,14 @@ namespace TestMarsCompetition.Page
         {
             //Click on signin button
             SignIn.Click();
+         
 
             //Enter username and password
+            
             Email.SendKeys(UserName);
+            
             PasswordElement.SendKeys(Password);
+            
             loginButton.Click();
             Thread.Sleep(3000);
 

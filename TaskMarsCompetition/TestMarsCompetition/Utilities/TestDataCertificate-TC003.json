@@ -1,0 +1,30 @@
+﻿{
+  
+  "TestCases": [
+       
+    {
+      "TestCaseId": "Tc03",
+      "Description": "Validate if the creation of Certificate fails when fields are empty",
+      "InputData": {
+        "CertificationDataList": [
+          {
+            "certificationName": "",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "AWS",
+            "certificationFrom": "",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "GPM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          }
+        ]
+      }
+    }
+
+  ]
+}

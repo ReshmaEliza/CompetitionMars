@@ -1,0 +1,43 @@
+﻿{
+ 
+  "TestCases": [
+   
+    
+      
+    {
+      "TestCaseId": "Tc05",
+      "Description": "Verify the update functionality.",
+      "InputData": {
+        "CertificationDataList": [
+          {
+            "certificationName": "CSM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "Cloud Engineer",
+            "certificationFrom": "AWS",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "GPM",
+            "certificationFrom": "Google",
+            "certificationYear": "2021"
+          }
+        ],
+
+        "EditCertificationData": {
+          "targetCertificate": "CSM",
+          "newData": {
+            "certificationName": "Project Manager",
+            "certificationFrom": "AWS",
+            "certificationYear": "2020"
+          }
+        }
+      }
+    }
+
+    
+
+  ]
+}

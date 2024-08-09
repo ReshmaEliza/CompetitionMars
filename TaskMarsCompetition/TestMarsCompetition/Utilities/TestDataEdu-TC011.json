@@ -1,8 +1,5 @@
 ﻿{
-  "LoginData": {
-    "email": "r.outlook.com",
-    "password": "@"
-  },
+  
   "TestCases": [
     {
       "TestCaseId": "Tc01",

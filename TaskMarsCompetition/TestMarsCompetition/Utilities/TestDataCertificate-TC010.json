@@ -1,0 +1,18 @@
+﻿{
+  
+  "TestCases": [
+       
+    {
+      "TestCaseId": "Tc10",
+      "Description": "Validate the addition of Certificate feature with 1000 characters",
+      "InputData": {
+        "CertificationData": {
+          "certificationName": "<Random>",
+          "certificationFrom": "<Random>",
+          "certificationYear": "2020"
+        }
+      }
+    }
+
+  ]
+}

@@ -1,0 +1,33 @@
+﻿{
+  
+  "TestCases": [
+    
+    {
+      "TestCaseId": "Tc08a",
+      "Description": "Verify that the case sensitivity of adding a Education feature ..",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland university",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+      }
+    }
+
+
+
+  ]
+}
