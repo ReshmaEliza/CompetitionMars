@@ -1,0 +1,28 @@
+﻿{
+  
+  "TestCases": [
+       
+
+    {
+      "TestCaseId": "Tc07",
+      "Description": "Verify that the system does not allow adding a Certificate that already exists.",
+      "InputData": {
+        "CertificationDataList": [
+          {
+            "certificationName": "CSM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "CSM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          }
+        ]
+
+      }
+    }
+
+
+  ]
+}

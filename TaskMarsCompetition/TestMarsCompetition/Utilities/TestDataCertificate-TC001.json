@@ -1,0 +1,20 @@
+﻿{
+  
+  "TestCases": [
+    {
+      "TestCaseId": "Tc01",
+      "Description": "Validate if the creation of Certificate is successfuL.",
+      "InputData": {
+        "certificationData": {
+
+          "certificationName": "GCP",
+          "certificationFrom": "Google",
+          "certificationYear": "2020"
+
+        }
+
+      }
+    }
+
+  ]
+}

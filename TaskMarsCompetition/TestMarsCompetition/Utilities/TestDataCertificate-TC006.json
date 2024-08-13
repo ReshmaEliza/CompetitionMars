@@ -1,0 +1,32 @@
+﻿{
+  
+  "TestCases": [
+      
+   
+    {
+      "TestCaseId": "Tc06",
+      "Description": "Verify the delete functionality.",
+      "InputData": {
+        "CertificationDataList": [
+          {
+            "certificationName": "CSM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "Cloud Engineer",
+            "certificationFrom": "AWS",
+            "certificationYear": "2020"
+          }
+        ],
+        "DeleteCertificateData": {
+          "targetcert": "CSM"
+
+        }
+      }
+    }
+
+
+
+  ]
+}

@@ -1,0 +1,23 @@
+﻿{
+  
+  "TestCases": [
+   
+    {
+      "TestCaseId": "Tc11",
+      "Description": "Verify the stability of system under high load",
+      "InputData": {
+        "certificateDataCount": {
+          "Count": "10"
+        },
+        "CertificationData": {
+          "certificationName": "<Random>",
+          "certificationFrom": "<Random>",
+          "certificationYear": "2020"
+        }
+      }
+    }
+
+
+
+  ]
+}

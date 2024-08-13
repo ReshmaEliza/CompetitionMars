@@ -1,0 +1,31 @@
+﻿{
+  "LoginData": {
+    "email": "reshmaphilip@outlook.com",
+    "password": "pass@"
+  },
+  "TestCases": [
+   
+
+    {
+      "TestCaseId": "Tc08a",
+      "Description": "Verify that the case sensitivity of adding a Certificate feature .",
+      "InputData": {
+        "CertificationDataList": [
+          {
+            "certificationName": "CSM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "Csm",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          }
+
+
+        ]
+      }
+    }
+
+  ]
+}

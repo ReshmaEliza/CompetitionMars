@@ -1,0 +1,21 @@
+﻿{
+
+  "TestCases": [
+       
+  
+    {
+      "TestCaseId": "Tc04",
+      "Description": "Validate if the creation of Certificate fails when Certificate value = ' '",
+      "InputData": {
+        "certificationData": {
+          "certificationName": "  ",
+          "certificationFrom": "Test",
+          "certificationYear": "2020"
+        }
+
+      }
+    }
+   
+
+  ]
+}

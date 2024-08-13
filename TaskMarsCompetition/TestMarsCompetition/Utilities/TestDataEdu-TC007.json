@@ -1,0 +1,35 @@
+﻿{
+  
+  "TestCases": [
+   
+
+    {
+      "TestCaseId": "Tc07",
+      "Description": "Verify that the system does not allow adding a Education that already exists.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+
+      }
+    }
+
+
+
+  ]
+}

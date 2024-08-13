@@ -1,0 +1,36 @@
+﻿{
+  "LoginData": {
+    "email": "reshma.eli.philip@outlook.com",
+    "password": "Tomato4132@"
+  },
+  "TestCases": [
+    
+    {
+      "TestCaseId": "Tc08b",
+      "Description": "Verify that the case sensitivity of adding a Education feature .",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+      }
+    }
+
+
+  ]
+}

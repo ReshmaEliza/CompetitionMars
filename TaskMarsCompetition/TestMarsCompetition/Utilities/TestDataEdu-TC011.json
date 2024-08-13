@@ -1,0 +1,309 @@
+﻿{
+  
+  "TestCases": [
+    {
+      "TestCaseId": "Tc01",
+      "Description": "Validate if the creation of Education is successful .",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "k",
+          "Title": "BFA",
+          "Degree": "k",
+          "YearOfGraduation": "2021"
+        }
+
+      }
+    },
+    {
+      "TestCaseId": "Tc02",
+      "Description": "Validate if the creation of Education fails with special characters.",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "@@",
+          "Title": "BFA",
+          "Degree": "k",
+          "YearOfGraduation": "2021"
+        }
+
+      }
+    },
+    {
+      "TestCaseId": "Tc03",
+      "Description": "Validate if the creation of Education fails when fields are empty",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "",
+          "Title": "BFA",
+          "Degree": "",
+          "YearOfGraduation": "2021"
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc04",
+      "Description": "Validate if the creation of Education fails when Education value = ' '",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": " ",
+          "Title": "BFA",
+          "Degree": " ",
+          "YearOfGraduation": "2021"
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc05",
+      "Description": "Verify the update functionality.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "Belgium",
+            "instituteName": "k",
+            "title": "B.A",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "Belgium",
+            "instituteName": "Edu",
+            "title": "B.A",
+            "degree": "Education2",
+            "yearOfGraduation": "2024"
+          }
+        ],
+        "EditEducationData": {
+          "targetdegree": "Education2",
+          "newData": {
+            "country": "Belgium",
+            "instituteName": "Ghent",
+            "title": "B.A",
+            "degree": "kjsjj",
+            "yearOfGraduation": "2023"
+          }
+        }
+      }
+    },
+
+    {
+      "TestCaseId": "Tc06",
+      "Description": "Verify the delete functionality.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "Edu",
+            "title": "B.A",
+            "degree": "Education2",
+            "yearOfGraduation": "2024"
+          }
+        ],
+        "DeleteEducationData": {
+          "targetdegree": "Education2"
+
+        }
+      }
+    },
+
+    {
+      "TestCaseId": "Tc07",
+      "Description": "Verify that the system does not allow adding a Education that already exists.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "India",
+            "instituteName": "k",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+
+      }
+    },
+
+    {
+      "TestCaseId": "Tc08a",
+      "Description": "Verify that the case sensitivity of adding a Education feature ..",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland university",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+      }
+    },
+
+    {
+      "TestCaseId": "Tc08b",
+      "Description": "Verify that the case sensitivity of adding a Education feature .",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Education1",
+            "yearOfGraduation": "2021"
+          },
+
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "education1",
+            "yearOfGraduation": "2021"
+          }
+
+
+        ]
+      }
+    },
+    {
+      "TestCaseId": "Tc09a",
+      "Description": "Verify if duplicate entries are blocked in case of updating the entries.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "M.Tech",
+            "degree": "Masters in Information Technology",
+            "yearOfGraduation": "2024"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "Associate",
+            "degree": "Information Technology",
+            "yearOfGraduation": "2024"
+          }
+
+        ],
+        "EditEducationData": {
+          "targetdegree": "Masters in Information Technology",
+          "newData": {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          }
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc09b",
+      "Description": "Verify if duplicate entries are blocked in case of updating the entries.",
+      "InputData": {
+        "EducationDataList": [
+          {
+            "country": "New Zealand",
+            "instituteName": "Auckland University",
+            "title": "B.Tech",
+            "degree": "Bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "Associate",
+            "degree": "Information Technology",
+            "yearOfGraduation": "2024"
+          },
+          {
+            "country": "New Zealand",
+            "instituteName": "University of Auckland",
+            "title": "M.Tech",
+            "degree": "Masters in Information Technology",
+            "yearOfGraduation": "2024"
+          }
+
+
+        ],
+        "EditEducationData": {
+          "targetdegree": "Masters in Information Technology",
+          "newData": {
+            "country": "New Zealand",
+            "instituteName": "auckland university",
+            "title": "B.Tech",
+            "degree": "bachelor of Information Technology",
+            "yearOfGraduation": "2005"
+          }
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc10",
+      "Description": "Validate the addition of Education feature with 1000 characters",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "<RandomCollege>",
+          "Title": "BFA",
+          "Degree": "<RandomDegree>",
+          "YearOfGraduation": "2021"
+        }
+      }
+    },
+    {
+      "TestCaseId": "Tc11",
+      "Description": "Verify the stability of system under high load",
+      "InputData": {
+        "EducationDataCount": {
+          "Count": "10"
+        },
+        "EducationData": {
+          "Count": "10",
+          "Country": "Algeria",
+          "InstituteName": "<RandomCollege>",
+          "Title": "BFA",
+          "Degree": "<RandomDegree>",
+          "YearOfGraduation": "2021"
+        }
+      }
+    }
+
+
+
+  ]
+}

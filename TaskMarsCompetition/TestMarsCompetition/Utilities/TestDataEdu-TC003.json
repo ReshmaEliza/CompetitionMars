@@ -1,0 +1,21 @@
+﻿{
+  
+  "TestCases": [
+    
+    {
+      "TestCaseId": "Tc03",
+      "Description": "Validate if the creation of Education fails when fields are empty",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "",
+          "Title": "BFA",
+          "Degree": "",
+          "YearOfGraduation": "2021"
+        }
+      }
+    }
+
+
+  ]
+}

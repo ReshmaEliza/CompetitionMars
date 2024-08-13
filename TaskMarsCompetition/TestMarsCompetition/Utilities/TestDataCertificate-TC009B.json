@@ -1,0 +1,42 @@
+﻿{
+  
+  "TestCases": [
+       
+    {
+      "TestCaseId": "Tc09b",
+      "Description": "Verify if duplicate entries are blocked in case of updating the entries.",
+      "InputData": {
+
+        "CertificationDataList": [
+          {
+            "certificationName": "GPM",
+            "certificationFrom": "Google",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "Cloud Engineer",
+            "certificationFrom": "AWS",
+            "certificationYear": "2020"
+          },
+          {
+            "certificationName": "PSM",
+            "certificationFrom": "Scrum Alliance",
+            "certificationYear": "2020"
+          }
+
+        ],
+        "EditCertificationData": {
+          "targetCertificate": "Cloud Engineer",
+          "newData": {
+            "certificationName": "gpm",
+            "certificationFrom": "google",
+            "certificationYear": "2020"
+          }
+
+        }
+      }
+    }
+
+
+  ]
+}

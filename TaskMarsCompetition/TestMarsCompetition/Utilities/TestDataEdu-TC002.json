@@ -1,0 +1,22 @@
+﻿{
+  
+  "TestCases": [
+   
+    {
+      "TestCaseId": "Tc02",
+      "Description": "Validate if the creation of Education fails with special characters.",
+      "InputData": {
+        "EducationData": {
+          "Country": "Algeria",
+          "InstituteName": "@@",
+          "Title": "BFA",
+          "Degree": "k",
+          "YearOfGraduation": "2021"
+        }
+
+      }
+    }
+
+
+  ]
+}
