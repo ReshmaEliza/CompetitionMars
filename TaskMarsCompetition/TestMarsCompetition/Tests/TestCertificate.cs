@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestMarsCompetition.Context;
+
 using TestMarsCompetition.ModelCert;
 
 using TestMarsCompetition.Page;
@@ -14,6 +14,8 @@ using TestMarsCompetition.Page;
 
 using TestMarsCompetition.Utilities;
 using OpenQA.Selenium.DevTools.V124.Runtime;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using TestMarsCompetition.ModelEducation;
 
 
 
@@ -59,13 +61,15 @@ namespace TestMarsCompetition.Tests
             //Add Elements
             certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
-            //Collecting the elemnts added in the particular scenario
-            TestContextManager.AddedCertData.Add(certData.certificationName);
-
+               
 
             //Assertions to verify addition
             assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
             Thread.Sleep(2000);
+            // Cleanup: Delete the cert data added
+                    
+           certificatePage.delete(certData.certificationName);
+
 
         }
 
@@ -74,22 +78,28 @@ namespace TestMarsCompetition.Tests
         public void TC_002_CreateANewSkillRecordWithInvalidCharacters()
         {
 
-
-            //Go to TC02 in the input file
-            testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC002.json");
-            var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc02");
-         
-            //Get the input data
-            var certData = testCase.InputData.certificationData;
-    
-            //Add Data
-            certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-            //Collecting the elements added in the particular scenario
-            TestContextManager.AddedCertData.Add(certData.certificationName);
             
+                //Go to TC02 in the input file
+                testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC002.json");
+                var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc02");
+
+                //Get the input data
+                var certData = testCase.InputData.certificationData;
+
+                //Add Data
+                certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+             
+            try { 
             //Assertions to verify addition
             assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-            Thread.Sleep(3000);
+                Thread.Sleep(3000);
+            }
+            finally
+            {
+                // Delete the added cert entry
+                certificatePage.delete(certData.certificationName);
+
+            }
 
         }
         [Test, Order(3), Description("TC_003 Validate if the creation of Certification fails when fields are empty")]
@@ -103,19 +113,30 @@ namespace TestMarsCompetition.Tests
             
             //Get Cert Data 
             var CertDatas = testCase.InputData.certificationDataList;
-            
 
-            //Add data
-            foreach (var certData in CertDatas)
+            try
             {
-                certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                //Add data
+                foreach (var certData in CertDatas)
+                {
+                    certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
-                //Collecting the elements added in the particular scenario
-                TestContextManager.AddedCertData.Add(certData.certificationName);
+                    //Assertions to verify addition
+                    assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                    Thread.Sleep(3000);
+                  
 
-                //Assertions to verify addition
-                assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                Thread.Sleep(3000);
+
+                }
+            }
+            // Cleanup: Delete the cert data added
+            finally
+            {
+                foreach (var certData in CertDatas)
+                {
+                    certificatePage.delete(certData.certificationName);
+
+                }
             }
         }
 
@@ -134,16 +155,22 @@ namespace TestMarsCompetition.Tests
        
             //Adding Elements
             certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-            //Collecting the elements added in the particular scenario
-            TestContextManager.AddedCertData.Add(certData.certificationName);
+            try
+            {
 
-            //Assertions to verify addition
-            assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-            Thread.Sleep(3000);
+                //Assertions to verify addition
+                assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                Thread.Sleep(3000);
+            }
+            finally {
+                // Cleanup: Delete the cert data added
+                certificatePage.delete(certData.certificationName);
+            }
 
-        }
 
-        [Test, Order(5), Description("TC_005 Verify the update functionality.")]
+            }
+
+            [Test, Order(5), Description("TC_005 Verify the update functionality.")]
         public void TC_005_UpdateCertification()
         {
 
@@ -163,22 +190,33 @@ namespace TestMarsCompetition.Tests
             {
                 certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
-
-                TestContextManager.AddedCertData.Add(certData.certificationName);
                 
                 Thread.Sleep(1000);
             }
 
             //Updating the Certification Values
             certificatePage.Update(editCertData.targetCertificate,editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
-            //Assertions to verify Updation 
-            assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
-            TestContextManager.AddUpdatedCert(editCertData.targetCertificate, editCertData.newData.certificationName);
-            TestContextManager.RemoveCert(editCertData.targetCertificate);
-            
-            Thread.Sleep(3000);
+
+            try
+            {//Assertions to verify Updation 
+                assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
+                Thread.Sleep(3000);
+            }
+
+            finally
+            {
+
+                // Cleanup: Delete the cert data added
+
+                foreach (var certData in certDatas)
+                {
+                    certificatePage.delete(certData.certificationName);
 
 
+                    Thread.Sleep(1000);
+                }
+                certificatePage.delete(editCertData.newData.certificationName);
+            }
         }
 
 
@@ -200,10 +238,6 @@ namespace TestMarsCompetition.Tests
             foreach (var certData in certDatas)
             {
                 certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-
-
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-                
                 certificatePage.CloseNotification();
                 Thread.Sleep(1000);
             }
@@ -211,8 +245,21 @@ namespace TestMarsCompetition.Tests
             //Perform Deletion
             certificatePage.delete(deletecertdata.targetcert);
             //Perform Assertions
-            assertions.DeleteCertAssert(deletecertdata.targetcert);
-            Thread.Sleep(3000);
+            try
+            {
+                assertions.DeleteCertAssert(deletecertdata.targetcert);
+                Thread.Sleep(3000);
+            }
+            // Cleanup: Delete the cert data added
+            finally
+            {
+                foreach (var certData in certDatas)
+                {
+                    certificatePage.delete(certData.certificationName);
+                    
+                    Thread.Sleep(1000);
+                }
+            }
         }
 
         [Test, Order(7), Description("TC_007 Verify that the system does not allow adding a Certification that already exists.")]
@@ -222,39 +269,47 @@ namespace TestMarsCompetition.Tests
             //Go to Tc07 in the Json input file
             testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC007.json");
             var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc07");
-          
+
             //Fetch the input values to be added in cert tab
             var certDatas = testCase.InputData.certificationDataList;
             var deleteEducationData = testCase.InputData.DeleteCertificateData;
             int index = 0;
-         
-            
             //Add Elements
-            foreach (var certData in certDatas)
+            try
             {
-                Thread.Sleep(1000);
-                certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                foreach (var certData in certDatas)
+                {
+                    Thread.Sleep(1000);
+                    certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
-                
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-                
-                if (index == 1)//Assertions to verify the behaviour of system when there is a duplicate entry 
-                {
-                    assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+
+                    if (index == 1)//Assertions to verify the behaviour of system when there is a duplicate entry 
+                    {
+                        assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                    }
+                    else
+                    {
+                        certificatePage.CloseNotification();
+                    }
+                    index++;
+
+
                 }
-                else
-                {
-                    certificatePage.CloseNotification();
-                }
-                index++;
+
+
+                Thread.Sleep(3000);
             }
-
-
-
-
-            Thread.Sleep(3000);
+            // Cleanup: Delete the cert data added
+            finally
+            {
+                foreach (var certData in certDatas)
+                {
+                    Thread.Sleep(1000);
+                    certificatePage.delete(certData.certificationName);
+                }
+            }
         }
-        
+
         [Test, Order(8), Description("TC_008 Verify that the case sensitivity of adding a Cert feature")]
         public void TC_008A_DuplicateEntryCheckWhileUpdatingACertification_ScenarioA()
         {
@@ -264,44 +319,53 @@ namespace TestMarsCompetition.Tests
             testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC008A.json");
             var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc08a");
             Thread.Sleep(1000);
-          
+
             //Get the input data
             var certDatas = testCase.InputData.certificationDataList;
 
             int index = 0;
-        
-
-            //Add Data
-            foreach (var certData in certDatas)
+            try
             {
-
-                Thread.Sleep(6000);
-                certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                //Collecting the elements added in the particular scenario
-
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-                
-                if (index > 0)//Perform Assertion only after the addition of duplicate element
+                //Add Data
+                foreach (var certData in certDatas)
                 {
-                    assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                    Thread.Sleep(1000);
-                    certificatePage.CloseNotification();
+
+                    Thread.Sleep(3000);
+                    certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
 
+                    if (index > 0)//Perform Assertion only after the addition of duplicate element
+                    {
+                        assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                        Thread.Sleep(1000);
+                        certificatePage.CloseNotification();
+
+
+                    }
+                    else
+                    {
+                        certificatePage.CloseNotification();
+                    }
+                    index++;
                 }
-                else
-                {
-                    certificatePage.CloseNotification();
-                }
-                index++;
+
+
+
+
+                Thread.Sleep(3000);
             }
+            finally
+            {
+                // Cleanup: Delete the cert data added
+                foreach (var certData in certDatas)
+                {
 
+                    Thread.Sleep(3000);
+                    certificatePage.delete(certData.certificationName);
 
-
-
-            Thread.Sleep(6000);
+                }
+            }
         }
-
 
         [Test, Order(9), Description("TC_008 Verify that the case sensitivity of adding a cert feature")]
         public void TC_008B_DuplicateEntryCheckWhileUpdatingAEdu_ScenarioB()
@@ -311,39 +375,51 @@ namespace TestMarsCompetition.Tests
             //Go to Tc08b in the Json input file
             testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC008B.json");
             var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc08b");
-        
+
             //Get the input data for Certification
             var certificateDatas = testCase.InputData.certificationDataList;
 
             int index = 0;
-        
-            
-            //Add data
-            foreach (var certData in certificateDatas)
+            try
             {
-
-                Thread.Sleep(6000);
-                certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-                //perform Assertion after the duplicate elements are added
-                if (index != 0)
+                //Add data
+                foreach (var certData in certificateDatas)
                 {
-                    assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                    Thread.Sleep(1000);
-                    certificatePage.CloseNotification();
+
+                    Thread.Sleep(3000);
+                    certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
 
 
+                    //perform Assertion after the duplicate elements are added
+                    if (index != 0)
+                    {
+                        assertions.AddCertAssert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
+                        Thread.Sleep(1000);
+                        certificatePage.CloseNotification();
+
+
+                    }
+                    else
+                    {
+                        certificatePage.CloseNotification();
+                    }
+                    index++;
                 }
-                else
-                {
-                    certificatePage.CloseNotification();
-                }
-                index++;
+
+                Thread.Sleep(3000);
             }
+            // Cleanup: Delete the cert data added
+            finally
+            {
+                foreach (var certData in certificateDatas)
+                {
 
-            Thread.Sleep(6000);
+                    Thread.Sleep(3000);
+                    certificatePage.delete(certData.certificationName);
+                }
+            }
         }
+
         [Test, Order(10), Description("TC_009 Verify if duplicate entries are blocked in case of updating the entries.")]
         public void TC_009A_DuplicateEntryCheckForAdditionOfCertification_ScenarioA()
         {
@@ -361,22 +437,34 @@ namespace TestMarsCompetition.Tests
             foreach (var certData in certDatas)
             {
                 certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-
-
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-                //scenarioContext.Set("Education", educationData.Degree);
+               
                 Thread.Sleep(1000);
             }
 
             //Updating Elements
             certificatePage.Update(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
             //Assertions to verify Actions
-            assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
-            //Collecting the elements updated in the particular scenario
-            TestContextManager.AddUpdatedCert(editCertData.targetCertificate, editCertData.newData.certificationName);
-            Thread.Sleep(3000);
+            try
+            {
+                assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
+
+                Thread.Sleep(3000);
+            }
+            finally
+            {
+                // Cleanup: Delete the cert data added
+                foreach (var certData in certDatas)
+                {
+                    certificatePage.delete(certData.certificationName);
+
+                    Thread.Sleep(1000);
+                }
+                // Cleanup: Delete the updated values of cert data 
+                certificatePage.delete(editCertData.newData.certificationName);
+                
 
 
+            }
         }
 
         [Test, Order(11),Description("TC_009 Verify if duplicate entries are blocked in case of updating the entries.")]
@@ -396,20 +484,31 @@ namespace TestMarsCompetition.Tests
             {
 
                 certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                 TestContextManager.AddedCertData.Add(certData.certificationName);
+                 
                 
                 Thread.Sleep(1000);
             }
 
             //Update Elements
             certificatePage.Update(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
-             TestContextManager.AddUpdatedCert(editCertData.targetCertificate, editCertData.newData.certificationName);
-            //Assertions to verify the update data
-            assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
+            try
+            {
+                //Assertions to verify the update data
+                assertions.UpdateAssertions(editCertData.targetCertificate, editCertData.newData.certificationName, editCertData.newData.certificationFrom, editCertData.newData.certificationYear);
 
-            Thread.Sleep(3000);
-
-
+                Thread.Sleep(3000);
+            }
+            finally
+            {
+                // Cleanup: Delete the added cert data
+                foreach (var certData in certificateDatas)
+                {
+                 certificatePage.delete(certData.certificationName);
+                        }
+                
+                // Cleanup: Delete the updated cert data
+                 certificatePage.delete(editCertData.newData.certificationName);
+            }
         }
 
 
@@ -432,15 +531,22 @@ namespace TestMarsCompetition.Tests
             certData.certificationFrom = randomcertificationFrom;
             //Adding data
             certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-            TestContextManager.AddedCertData.Add(certData.certificationName);
+            try
+            {
+
+                assertions.StringLengthAssertion_certificate();
+
+                Thread.Sleep(3000);
+            }
+            finally// Cleanup: Delete the cert data added
+            {
+                certificatePage.delete(certData.certificationName);
+
+
+
+            }
             
-            assertions.StringLengthAssertion_certificate();
-
-
-
-
-            Thread.Sleep(3000);
-
+         
 
         }
 
@@ -452,7 +558,8 @@ namespace TestMarsCompetition.Tests
             testDatacert = JsonReaderCert.ReadTestData("Utilities/TestDataCertificate-TC011.json");
             var testCase = testDatacert.TestCases.Find(tc => tc.TestCaseId == "Tc11");
             Thread.Sleep(1000);
-        
+            // Keep track of added certificates for cleanup
+             var addedCertifications = new List<string>();
             //Add input data
             var certDataCount = testCase.InputData.certificateDataCount;
             var certData = testCase.InputData.certificationData;
@@ -475,19 +582,28 @@ namespace TestMarsCompetition.Tests
                 certData.certificationFrom = randomcertificationFrom;
                 //Add values
                 certificatePage.AddCert(certData.certificationName, certData.certificationFrom, certData.certificationYear);
-                TestContextManager.AddedCertData.Add(certData.certificationName);
-          
-                
+                // Track the added certificate names for cleanup
+                addedCertifications.Add(randomcertificatename);
+
             }
             //Refresh data to get the updated entries
             certificatePage.GoToTab();
             //assertions
-            assertions.Stability(count);
+            try
+            {
+                assertions.Stability(count);
+                Thread.Sleep(3000);
+            }
+            finally
+            {// Cleanup: Delete the cert data added
+                foreach (var certificateset in addedCertifications)
+                {
+                    
+                    certificatePage.delete(certificateset);
+                }
 
-            Thread.Sleep(3000);
 
-
+            }
         }
-
     }
 }

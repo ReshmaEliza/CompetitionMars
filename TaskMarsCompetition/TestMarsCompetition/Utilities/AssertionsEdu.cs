@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Diagnostics.Metrics;
 using System.Linq.Expressions;
+using TestMarsCompetition.Page;
 
 namespace TestMarsCompetition.Utilities
 {
@@ -37,6 +38,7 @@ namespace TestMarsCompetition.Utilities
 
         private static By AddedCountryLocator(string country) => (By.XPath($"//div[@data-tab='third']//td[contains(text(),'{country}')]"));
         String AddedCountry;
+        EducationPage EducationPage = new EducationPage();
         private static By AddedtitleLocator(string title) => (By.XPath($"//div[@data-tab='third']//td[contains(text(),'{title}')]"));
         String Addedtitle;
 
@@ -97,25 +99,31 @@ namespace TestMarsCompetition.Utilities
                 {
 
                     TestContext.Write($"Addition of Education - '{degree}' has not been done due to '{notification}'\n.The system stopped the addition of duplicate entries");
+                    EducationPage.cancelButton();
                 }
                 else if (notification.Contains("Duplicated"))
                 {
 
                     TestContext.Write($"Addition - {degree} has not been done due to '{notification}'\n");
+                    EducationPage.cancelButton();
                 }
                 else if (notification.Contains("Please enter all the fields"))
                 {
 
                     TestContext.Write($"Addition of Education '{degree}' has not been done. Notification from system - '{notification}'\n");
+                    EducationPage.cancelButton();
+
+
                 }
                 else
                     Assert.Fail($"Failed Action due to :{notification}");
             }
             else
             {
+                
                 if (notification.Contains("Education information was invalid"))
                 {
-
+                    EducationPage.cancelButton();
                     TestContext.Write($"Addition of '{degree}' has not been done due to {notification}\n");
                 }
                 else
@@ -170,7 +178,7 @@ namespace TestMarsCompetition.Utilities
             foreach (string Value in table_Values)
             {
 
-                TestContext.WriteLine($"{Value}");
+                
                 if (!seenRows.Add(Value))
                 {
                     // Print a message indicating a duplicate was found
@@ -259,16 +267,19 @@ namespace TestMarsCompetition.Utilities
                 {
 
                     TestContext.Write($"Updation of degree '{oldDegreeValue}' has not been done. Notification from system-{notification}\n");
+                    EducationPage.cancelButton();
                 }
                 else if (notification.Contains("Duplicated"))
                 {
 
                     TestContext.Write($"Updation of degree '{oldDegreeValue}' has not been done. Notification from system-{notification}\n");
+                    EducationPage.cancelButton();
                 }
                 else if (notification.Contains("Please enter language and level"))
                 {
 
                     TestContext.Write($"Updation of language '{oldDegreeValue}' has not been done. Notification from system-{notification}\n");
+                    EducationPage.cancelButton();
                 }
 
                 else

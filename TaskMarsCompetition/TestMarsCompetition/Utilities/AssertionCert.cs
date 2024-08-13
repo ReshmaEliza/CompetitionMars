@@ -27,6 +27,7 @@ namespace TestMarsCompetition.Utilities
         private static By row_Locator => By.XPath("//div[@data-tab='fourth']//tbody");
         private static By TableElementsCert_Locator => By.XPath($"//div[@data-tab='fourth']//td[1]");
         private static IList<IWebElement> TableElementsCert;
+        
 
 
         private static By TableElementscertfrom_Locator => By.XPath($"//div[@data-tab='fourth']//td[2]");
@@ -82,6 +83,7 @@ namespace TestMarsCompetition.Utilities
             { //The following statements analyses the value of the notification and determines the test results
                 if (notification.Contains(" has been added to your certification"))
                 {
+                    
                     NotificationCertAddedAssert(notification, TableElementsCert, certificationName, certificationFrom, certificationYear);
                 }
 
@@ -163,7 +165,7 @@ namespace TestMarsCompetition.Utilities
             foreach (string Value in table_Values)
             {
 
-                TestContext.WriteLine($"{Value}");
+                
                 if (!seenRows.Add(Value))
                 {
                     // Print a message indicating a duplicate was found
@@ -247,17 +249,17 @@ namespace TestMarsCompetition.Utilities
                 }
                 else if (notification.Contains("This information is already exist."))
                 {
-
+                    certificatePage.cancelButton();
                     TestContext.Write($"Updation of certificate '{oldCertValue}' has not been done. Notification from system-{notification}\n");
                 }
                 else if (notification.Contains("Duplicated"))
                 {
-
+                    certificatePage.cancelButton();
                     TestContext.Write($"Updation of certificate '{oldCertValue}' has not been done. Notification from system-{notification}\n");
                 }
                 else if (notification.Contains("Please enter language and level"))
                 {
-
+                    certificatePage.cancelButton();
                     TestContext.Write($"Updation of language '{oldCertValue}' has not been done. Notification from system-{notification}\n");
                 }
 
@@ -272,7 +274,7 @@ namespace TestMarsCompetition.Utilities
             {
                 if (notification.Contains("certificate information was invalid"))
                 {
-
+                    certificatePage.cancelButton();
                     TestContext.Write($"Addition of '{oldCertValue}' has not been done due to {notification}\n");
                 }
                 else

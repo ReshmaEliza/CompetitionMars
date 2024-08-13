@@ -5,7 +5,7 @@ using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TestMarsCompetition.Utilities;
-using TestMarsCompetition.Context;
+
 
 using TestMarsCompetition.Page;
 using TestMarsCompetition.ModelEducation;
@@ -56,33 +56,29 @@ namespace TestMarsCompetition.Utilities
             extent.AddSystemInfo("Environment", "QA");
             extent.AddSystemInfo("Username", "R");
 
-        }
-        [SetUp]
-        public  void StartUp()
-        {
-            
-            test = extent.CreateTest(testName);
             WebdriverManager.InitializeDriver();
-            loginData = JsonReaderlogin.ReadTestData("Utilities/TestDataLogin.json");
-             login.loginPage(loginData.email, loginData.password);
-            
+              test = extent.CreateTest(testName);
+                WebdriverManager.InitializeDriver();
+                loginData = JsonReaderlogin.ReadTestData("Utilities/TestDataLogin.json");
+                login.loginPage(loginData.email, loginData.password);
 
-            if (testName.Contains("Education", StringComparison.OrdinalIgnoreCase))
-            {
-                educationPage.GoToTab();
-                educationPage.DeleteAllElements();
-            }
-            else if (testName.Contains("Certificate", StringComparison.OrdinalIgnoreCase))
-            {
-                certificatePage.GoToTab();
-                certificatePage.DeleteAllElements();
-            }
-         
-            
+
+                if (testName.Contains("Education", StringComparison.OrdinalIgnoreCase))
+                {
+                    educationPage.GoToTab();
+                    educationPage.DeleteAllElements();
+                    Thread.Sleep(3000);
+                }
+                else if (testName.Contains("Certificate", StringComparison.OrdinalIgnoreCase))
+                {
+                    certificatePage.GoToTab();
+                    certificatePage.DeleteAllElements();
+                }
+
+
         }
-
-
-        [TearDown]
+        
+                [TearDown]
         public void AfterTest()
 
 
@@ -109,57 +105,15 @@ namespace TestMarsCompetition.Utilities
             }
 
             extent.Flush();
-
-            // Clean up the added education data if Edu Tests are run
-            if (testName.Contains("Education", StringComparison.OrdinalIgnoreCase))
-            {
-                var addedEducationData = TestContextManager.AddedEducationData;
-
-            foreach (var educationData in addedEducationData)
-            {
-                Thread.Sleep(1000);
-                educationPage.delete(educationData);
-
-
-            }
-
-            var updatedEducationvalue = TestContextManager.UpdatedEducation;
-
-            // Delete all if update action was performed on  Education 
-           
-                foreach (var Educationset in updatedEducationvalue)
-                {
-                    Thread.Sleep(2000);
-                    educationPage.delete(Educationset); //  deletion of updated elements for the particular scenario
-                }
-               
-
-            }
-
-            // Clean up the added cert data if the test for cert is run
-            else if (testName.Contains("Certificate", StringComparison.OrdinalIgnoreCase))
-            {
-                var addedcertData = TestContextManager.AddedCertData;
             
-                foreach (var certificationData in addedcertData)
-                {
-                    Thread.Sleep(1000);
-                    certificatePage.delete(certificationData);
-                
-               
 
-                }
-           
-                var updatedCertvalue = TestContextManager.UpdatedCert;
-                // Delete all updated certificates
-                foreach (var certset in updatedCertvalue)
-                {
-                    Thread.Sleep(2000);
-                    certificatePage.delete(certset); //  deletion of updated elements for the particular scenario
-                }
+        }
 
 
-            }
+        [OneTimeTearDown]
+
+        public void closebrowser()
+        {
             WebdriverManager.QuitDriver();
         }
 

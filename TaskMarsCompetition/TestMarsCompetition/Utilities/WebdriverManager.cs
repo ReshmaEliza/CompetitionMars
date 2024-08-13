@@ -10,6 +10,8 @@ namespace TestMarsCompetition.Utilities
 {
      public class WebdriverManager
     {
+        
+
         protected static IWebDriver driver;
 
         // Method to initialize the WebDriver
@@ -17,7 +19,7 @@ namespace TestMarsCompetition.Utilities
         {
             if (driver == null)
             {
-                driver = new ChromeDriver();
+               driver = new ChromeDriver();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
                 driver.Manage().Window.Maximize();
                 driver.Url = "http://localhost:5000/";

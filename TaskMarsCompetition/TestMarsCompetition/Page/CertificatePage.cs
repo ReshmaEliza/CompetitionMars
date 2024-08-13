@@ -99,7 +99,7 @@ namespace TestMarsCompetition.Page
                         deleteAllButton = driver.FindElement(deleteAllbuttonLocator);
 
                         WindowHandlers.ScrollToView(TableChoice);
-                        Thread.Sleep(2000);
+                        Thread.Sleep(3000);
 
                         deleteAllButton.Click();
 
@@ -122,8 +122,8 @@ namespace TestMarsCompetition.Page
             //Clicking Add Button
 
             AddNew = driver.FindElement(addLocator);
-            WaitUtils.WaitToBeClickable("Xpath", addLocator, 10);
-            Thread.Sleep(2000);
+            WaitUtils.WaitToBeClickable("Xpath", addLocator, 30);
+            Thread.Sleep(3000);
             AddNew.Click();
 
             //Entering cert Name

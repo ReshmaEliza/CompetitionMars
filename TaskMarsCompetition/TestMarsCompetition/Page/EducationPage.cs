@@ -30,7 +30,8 @@ namespace TestMarsCompetition.Page
 
         private static By UpdateButtonLocator = By.XPath("//input[@value='Update']");
         private IWebElement updateButton;
-
+        private By CancelButtonLocator => By.XPath("//input[@value='Cancel']");
+        private IWebElement Cancel_Button;
         private By DropDownLocator(String Name) => By.XPath($"//div[@class='row']//select[@name='{Name}']");
         IWebElement dropDown;
         private static By TabLocator => By.XPath($"//a[text() = 'Education']");
@@ -40,11 +41,11 @@ namespace TestMarsCompetition.Page
 
         private static By deleteAllbuttonLocator => By.XPath($"//div[@data-tab='third']//td/parent::tr//span[@class='button'][2]");
         private static IWebElement deleteAllButton;
-        private static By deleteElementButtonLocator(string ElementtobeDelete) => By.XPath($"//div[@data-tab='third']//td[contains(text(),'{ElementtobeDelete}')]/parent::tr//span[@class='button'][2]");
+        private static By deleteElementButtonLocator(string ElementtobeDelete) => By.XPath($"//div[@data-tab='third']//td[(text()='{ElementtobeDelete}')]/parent::tr//span[@class='button'][2]");
         private IWebElement deleteElement;
 
 
-        private static By AddTextBoxLocatorCollege => By.XPath($"//div[@class='row']//input[@placeholder='College/University Name']");
+        private static By AddTextBoxLocatorCollege => By.XPath("//div[@class='row']//input[@placeholder='College/University Name']");
         private IWebElement AddTextBoxCollege;
 
         private static By AddTextBoxLocatorDegree => By.XPath($"//div[@class='row']//input[@placeholder='Degree']");
@@ -69,6 +70,7 @@ namespace TestMarsCompetition.Page
         public EducationPage()
         {
 
+            driver = WebdriverManager.GetDriver();
             driver = WebdriverManager.GetDriver();
         }
         public void GoToTab()
@@ -115,6 +117,11 @@ namespace TestMarsCompetition.Page
             }
         }
 
+        public void cancelButton()
+        {
+            Cancel_Button = driver.FindElement(CancelButtonLocator);
+            Cancel_Button.Click();
+        }
         public void AddEducation(string instituteName, string country, string title, string degree, string yearOfGraduation)
 
 
@@ -122,15 +129,16 @@ namespace TestMarsCompetition.Page
         {
             Thread.Sleep(3000);
             //Clicking Add Button
-            // SafeClick(addLocator);
+            
             AddNew = driver.FindElement(addLocator);
-            WaitUtils.WaitToBeClickable("Xpath", addLocator, 10);
+            WaitUtils.WaitToBeClickable("Xpath", addLocator, 20);
+            
             AddNew.Click();
 
             //Entering Institution Name
             AddTextBoxCollege = driver.FindElement(AddTextBoxLocatorCollege);
             AddTextBoxCollege.SendKeys(instituteName);
-            //SafeSendKeys(AddTextBoxLocatorCollege, instituteName);
+
             //Choose the country dropdown and click on the value
             DropDown("country", country);
 
@@ -140,7 +148,7 @@ namespace TestMarsCompetition.Page
 
             //Entering Degree Name
             Degree = driver.FindElement(AddTextBoxLocatorDegree);
-            //SafeSendKeys(AddTextBoxLocatorCollege, instituteName);
+            
             Degree.SendKeys(degree);
 
             //Choose the graduation year
